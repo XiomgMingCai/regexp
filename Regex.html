@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <title></title>
+    <link rel="stylesheet" href="http://oofmq9rym.bkt.clouddn.com/normalize.css" type="text/css">
+    <link rel="stylesheet" href="http://oofmq9rym.bkt.clouddn.com/prism_number.css" type="text/css">
+    <!-- 最新版本的 Bootstrap 核心 CSS 文件 -->
+    <link rel="stylesheet" href="https://cdn.bootcss.com/bootstrap/3.3.7/css/bootstrap.min.css"
+          integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+</head>
+
+<body>
+<div id="app" class="container" >
+    <div class="form-group">
+        <label for="exampleInputEmail1">测试文本</label>
+        <textarea v-model="text" class="form-control" :rows="rows" placeholder="在此输入待匹配文本"></textarea>
+    </div>
+
+    <div class="form-group">
+        <label for="exampleInputEmail1">正则表达式</label>
+        <input v-model="regexp" type="text" class="form-control" id="exampleInputEmail1" placeholder=" '测试文本'.match(/正则表达式/g)">
+    </div>
+    <p>{{result}}</p>
+    <img width="100%"  src="http://oo34aq09b.bkt.clouddn.com/regex.jpg" alt="">
+</div>
+<script src="https://cdn.jsdelivr.net/npm/vue"></script>
+<script src="http://oofmq9rym.bkt.clouddn.com/prism_number.js" async></script>
+<script>
+    var app = new Vue({
+        el: '#app',
+        data: {
+            text: 'https://github.com/XiomgMingCai',
+            regexp: '(https?|ftp|file)://[-A-Za-z0-9+&@#/%?=~_|!:,.;]+[-A-Za-z0-9+&@#/%=~_|]'
+        },
+        computed: {
+            result: function () {
+                if (this.regexp === '') {
+                    return ''
+                }
+                var regexp = '';
+                regexp = new RegExp(this.regexp, 'g');
+                return this.text.match(regexp)
+            },
+            rows:function () {
+                var _text = this.text;
+                _text += '\n'
+                return  _text.match(new RegExp('\n', 'g')).length
+            }
+        }
+    })
+</script>
+</body>
+</html>
